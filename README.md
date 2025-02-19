@@ -96,21 +96,39 @@ docker rm <container_id>
 
 ## 🌐 **Deployment on EC2**
 
-1. Transfer files to EC2 using SCP:
+1. Create an EC2 instance on AWS , add a rule to it for port 8501:
+![image](https://github.com/user-attachments/assets/976718f2-984c-463b-869a-0dbe600852e2)
+
+
+2. Connect to EC2(using ec2 connect on AWS):
+![image](https://github.com/user-attachments/assets/8dcd5fcc-5f2c-454b-a6a6-7b0504fa5030)
+![image](https://github.com/user-attachments/assets/c3972d94-cce4-4e6e-9fb6-2a348f6b0d8d)
+
+3. Transfer files to EC2 using SCP:
 ```bash
 scp -i "docker.pem" Dockerfile app.py requirements.txt mushroom.csv ec2-user@<EC2-IP>:~/
 ```
+![image](https://github.com/user-attachments/assets/95720fa4-11f3-48fc-9c5b-8f218dc545bf)
 
-2. Connect to EC2:
-```bash
-ssh -i "docker.pem" ec2-user@<EC2-IP>
-```
+4. Install docker on the EC2 instance:
+'''bash
+sudo yum update -y
+sudo yum install docker -y
+'''
+![image](https://github.com/user-attachments/assets/368b7962-2da6-4c42-846f-536f834a852e)
 
-3. Build and Run Docker on EC2:
+4. Build and Run Docker on EC2:
 ```bash
 docker build -t my_app:V1 .
 docker run -d -p 8501:8501 my_app:V1
 ```
+![image](https://github.com/user-attachments/assets/230e1f25-6798-4138-89e1-d134f4bf0d9a)
+![image](https://github.com/user-attachments/assets/4927b096-5e10-479d-b2bf-948fd7ab24b7)
+
+5. Go to the public ip of your EC2
+-> http://your-instance-public-ip:8501/
+   ![image](https://github.com/user-attachments/assets/0003f575-2d16-4420-b14e-7afd3347e70b)
+
 
 ---
 
